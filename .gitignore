@@ -1,0 +1,27 @@
+# Applicant data belongs outside this repository.
+private/
+local/
+profiles/
+materials/
+screenshots/
+logs/
+dist/
+.env
+.env.*
+*.local.*
+*.pdf
+*.docx
+*.xlsx
+*.png
+*.jpg
+*.jpeg
+*.zip
+*.log
+*.har
+*.sqlite*
+*.pem
+*.key
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db

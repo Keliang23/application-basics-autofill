@@ -16,15 +16,51 @@ A reusable AI agent skill for the factual sections of university applications: r
 
 Form filling uses the current environment's existing browser connection and document-reading tools. Each institution's portal requires page-by-page interpretation; automated operation is not guaranteed on every website.
 
-## Installation and use
+## User guide
+
+### 1. Connect your browser
+
+**Recommended: install OpenAI's ChatGPT browser extension**, including the Microsoft Edge version if you use Edge. Use the installation links provided by the desktop app or the [official browser extension setup guide](https://learn.chatgpt.com/docs/chrome-extension).
+
+In an up-to-date ChatGPT desktop app, open **Settings > Computer Use**, select your browser (under **More browsers** if needed), and follow the plugin and extension installation prompts. Return to the settings and confirm that the browser shows **Manage**. Start a ChatGPT Work or Codex chat and select the browser or application tab with an `@`-mention. Use the browser profile where you installed the extension. Availability depends on rollout and workspace settings; see the [official guide](https://learn.chatgpt.com/docs/chrome-extension) for current requirements.
+
+This skill assumes that a working browser connection is already available. It contains instructions and templates, not a browser automation engine. The host agent also needs permission and tools to read your designated local documents and upload files. Installing the extension alone does not install this skill or grant access to your files.
+
+### 2. Install the skill
 
 Copy the entire `skills/application-basics-autofill/` directory into the skills directory supported by your agent. For Codex, use the user-level `$CODEX_HOME/skills/` directory, typically `~/.codex/skills/` when the environment variable is unset. For other hosts, follow their skill installation instructions.
 
-Example request:
+Keep `SKILL.md`, `agents/`, `assets/` and `references/` together. Confirm that your agent can find `application-basics-autofill` before starting an application.
 
-> Use $application-basics-autofill to complete all non-essay factual sections and short answers in my current university application using my designated private materials. Upload the existing attachments listed for this programme, including my completed SOP. Save the draft and verify the result. Do not write or revise essays, and never submit the application. Group any missing-information questions together.
+### 3. Fill your private information template
 
-If you do not already have an equivalent profile, copy the [blank applicant profile and material index](skills/application-basics-autofill/assets/private-workspace-template.md) once as `Applicant_Profile.md` to a **private directory outside the repository** before adding your information and material references. Reuse this shared profile across schools. Do not enter real information into the template inside the repository.
+If you do not already have an equivalent profile, copy the [blank applicant profile and material index](skills/application-basics-autofill/assets/private-workspace-template.md) once as `Applicant_Profile.md` to a **private directory outside the repository**. Edit this private copy in a text or Markdown editor. Reuse it across schools; never enter personal information into the public repository's template.
+
+- **Personal details:** enter your own name and the contact information required by the application. Add the source location or confirmation date in the adjacent column.
+- **Education and tests:** add a row for each relevant institution and test, with dates and paths to transcripts, certificates or score reports. Preserve the official wording; the agent checks GPA and other details against the originals.
+- **Employment, projects, activities and honours:** record factual roles, dates and contributions, with references to your resume or supporting records. Leave uncertain details blank or mark them `Needs confirmation`.
+- **Recommenders:** complete this section only when needed. Providing contact details does not authorize an invitation.
+- **Private workspace locations and material index:** identify your application root and the existing files the agent should read. Include each file's path or accessible private reference, version or issue date, and intended use. List completed SOP/PS files here if you want them uploaded. Keep original files in their existing locations.
+
+You do not need to fill every cell before starting. A blank value means unknown, not `No` or `Not applicable`. For sensitive identity fields, prefer a reference to the original document instead of copying the number into the profile. Never include passwords, verification codes, session cookies or access tokens. The agent must reopen the relevant originals; the profile is an index and starting point, not a substitute for evidence.
+
+### 4. Start an application
+
+Open the school's application portal in the connected browser, sign in yourself, and identify the correct tab. Tell the agent the school, programme, intake, private profile location and any existing school folder or progress Markdown. Specify which attachment versions are ready for this application, including a completed SOP/PS when applicable. Resolve login, verification-code or CAPTCHA prompts yourself if the portal requires them.
+
+Replace the bracketed placeholders in this example before sending it:
+
+> Use $application-basics-autofill for [school, programme, intake] in [the selected browser tab or portal URL]. My private profile is [path to Applicant_Profile.md]; use its references to reopen my original materials. Reuse [existing school folder and progress Markdown], or create a school folder with one Application.md if none exists. Complete all non-essay factual fields and short answers. Upload [the designated attachment paths and versions], including my completed SOP if listed. Save and verify the draft, group missing-information questions together, and update the same progress Markdown. Do not write or revise essays. Never submit the application.
+
+The agent checks the records, fills supported answers, handles newly revealed fields, uploads the designated existing files and verifies saved results. If evidence is missing or conflicting, it asks you rather than guessing. Check its questions and supply corrections or additional original records as needed.
+
+### 5. Resume and review
+
+To continue later, point the agent to the same private profile, school folder, progress Markdown and application tab:
+
+> Resume this application with $application-basics-autofill. Read [the existing school progress Markdown], check the current portal state, and continue the unfinished factual sections and designated uploads. Update the same file without creating another progress record. Never submit the application.
+
+Review every answer, attachment preview and unresolved item in the portal yourself. **Only you perform final submission.** The agent must also stop before any combined action that submits, such as payment, declaration or upload buttons that finalize the application.
 
 Workflow: install the skill → fill your private template and identify original records and completed attachments → specify the application page in the connected browser and the task scope → the agent verifies the records, fills factual answers, uploads the designated files and checks the saved draft → the applicant reviews and submits personally.
 

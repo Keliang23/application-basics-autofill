@@ -1,0 +1,4 @@
+interface:
+  display_name: "Application Basics Autofill"
+  short_description: "Fill application facts from verified private records"
+  default_prompt: "Use $application-basics-autofill to complete factual sections and non-essay short answers, upload my designated existing attachments including a completed SOP, and verify the saved draft. Never submit the application."
